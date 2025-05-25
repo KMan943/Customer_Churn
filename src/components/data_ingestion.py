@@ -12,8 +12,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
-from data_transformation import DataTransformation, DataTransformationConfig
-from model_trainer import ModelTrainer, ModelTrainerConfig
+# from src.components.data_transformation import DataTransformation, DataTransformationConfig
+# from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
 
 @dataclass
 class DataIngestionConfig:
@@ -53,17 +53,17 @@ class DataIngestion:
             raise CustomExeption(e,sys)
 
 
-if __name__ == "__main__":
-    obj = DataIngestion()
-    train_data_path , test_data_path = obj.initiate_data_ingestion()
+# if __name__ == "__main__":
+#     obj = DataIngestion()
+#     train_data_path , test_data_path = obj.initiate_data_ingestion()
 
-    data_transformer_obj = DataTransformation()
-    _ = data_transformer_obj.initiate_data_transformation(train_data_path=train_data_path,test_data_path=test_data_path)
-    train_arr , test_arr , preprocessor_path = _
+#     data_transformer_obj = DataTransformation()
+#     _ = data_transformer_obj.initiate_data_transformation(train_data_path=train_data_path,test_data_path=test_data_path)
+#     train_arr , test_arr , preprocessor_path = _
 
-    model_trainer_obj = ModelTrainer()
-    r2_score = model_trainer_obj.initiate_model_training(train_arr=train_arr , test_arr=test_arr)
-    print(f"final score of the best model: {r2_score}")
+#     model_trainer_obj = ModelTrainer()
+#     r2_score = model_trainer_obj.initiate_model_training(train_arr=train_arr , test_arr=test_arr)
+#     print(f"final score of the best model: {r2_score}")
     
     
     

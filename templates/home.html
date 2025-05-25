@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"], input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="number"]:focus, input[type="text"]:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .prediction-result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f5e8;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Churn Prediction System</h1>
+        
+        <form action="/predictdata" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="Age">Age:</label>
+                    <input type="number" id="Age" name="Age" min="18" max="100" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Tenure">Tenure (months):</label>
+                    <input type="number" id="Tenure" name="Tenure" min="0" max="120" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="Usage_Frequency">Usage Frequency:</label>
+                    <input type="number" id="Usage_Frequency" name="Usage_Frequency" min="0" step="0.1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Support_Calls">Support Calls:</label>
+                    <input type="number" id="Support_Calls" name="Support_Calls" min="0" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="Payment_Delay">Payment Delay (days):</label>
+                    <input type="number" id="Payment_Delay" name="Payment_Delay" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Total_Spend">Total Spend ($):</label>
+                    <input type="number" id="Total_Spend" name="Total_Spend" min="0" step="0.01" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="Last_Interaction">Last Interaction (days ago):</label>
+                    <input type="number" id="Last_Interaction" name="Last_Interaction" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Gender">Gender:</label>
+                    <select id="Gender" name="Gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="Subscription_Type">Subscription Type:</label>
+                    <select id="Subscription_Type" name="Subscription_Type" required>
+                        <option value="">Select Subscription Type</option>
+                        <option value="Basic">Basic</option>
+                        <option value="Standard">Standard</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Contract_Length">Contract Length:</label>
+                    <select id="Contract_Length" name="Contract_Length" required>
+                        <option value="">Select Contract Length</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Quarterly">Quarterly</option>
+                        <option value="Annual">Annual</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Predict Customer Churn</button>
+        </form>
+        
+        {% if predictions is defined %}
+        <div class="prediction-result">
+            <h2>Prediction Result:</h2>
+            <p>
+                {% if predictions == 1 %}
+                    <span style="color: #d32f2f;">⚠️ High Risk: Customer is likely to churn</span>
+                {% else %}
+                    <span style="color: #388e3c;">✅ Low Risk: Customer is likely to stay</span>
+                {% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

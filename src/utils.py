@@ -48,3 +48,13 @@ def evaluate_models(X_train , y_train , X_test, y_test , models:dict) -> dict:
     except Exception as e:
         logging.info('failed to train and evaluate the models')
         raise CustomExeption(e,sys)
+    
+
+def load_object(file_path):
+    try:
+        with open(file_path , "rb") as obj:
+            return dill.load(obj)
+        
+    except Exception as e:
+        logging.info("failed to load the object")
+        raise CustomExeption(e,sys)
